@@ -2,22 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
-    <title>Create person</title>
+    <title>Добавить читателя</title>
 </head>
 <body>
-<h2>Create person</h2>
+<h2>Добавить читателя</h2>
 
 <form th:method="post" th:action="@{/people/save}" th:object="${person}">
     <div>
-        <label for="name">Name: </label>
+        <label for="name">Введите имя: </label>
         <input th:field="*{name}" id="name"><br>
 
-        <label for="yearOfBirth">Name: </label>
+        <label for="yearOfBirth">Введите год рождения: </label>
         <input th:field="*{yearOfBirth}" id="yearOfBirth"><br>
     </div>
 
     <p>
-        <input type="submit" value="Create!">
+        <input type="submit" value="Добавить!">
     </p>
 </form>
 </body>
