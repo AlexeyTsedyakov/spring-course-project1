@@ -3,22 +3,32 @@
 <head>
     <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
     <title>Добавить читателя</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
+
 <body>
 <h2>Добавить читателя</h2>
 
-<form th:method="post" th:action="@{/people/save}" th:object="${person}">
+<form th:method="post" th:action="@{/people}" th:object="${person}">
     <div>
-        <label for="name">Введите имя: </label>
-        <input th:field="*{name}" id="name"><br>
+        <label for="name">Введите ФИО: </label>
+        <input th:field="*{name}" id="name">
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></div>
+        <br>
 
         <label for="yearOfBirth">Введите год рождения: </label>
         <input th:field="*{yearOfBirth}" id="yearOfBirth"><br>
+        <div th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}" class="error"></div>
+        <br>
     </div>
 
-    <p>
+    <div>
         <input type="submit" value="Добавить!">
-    </p>
+    </div>
 </form>
 </body>
 </html>

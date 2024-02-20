@@ -3,22 +3,32 @@
 <head>
     <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
     <title>Изменить читателя</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
+
 <body>
 <h2>Редактировать читателя</h2>
 
 <form th:method="put" th:action="@{/people/{id} (id = ${person.getId()})}" th:object="${person}">
     <div>
-        <label for="name">Введите имя: </label>
-        <input th:field="*{name}" id="name"><br>
+        <label for="name">Введите ФИО: </label>
+        <input th:field="*{name}" id="name">
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></div>
+        <br>
 
         <label for="yearOfBirth">Введите год рождения: </label>
         <input th:field="*{yearOfBirth}" id="yearOfBirth"><br>
+        <div th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}" class="error"></div>
+        <br>
     </div>
 
-    <p>
+    <div>
         <input type="submit" value="Редактировать!">
-    </p>
+    </div>
 </form>
 </body>
 </html>
