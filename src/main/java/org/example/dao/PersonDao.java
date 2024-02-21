@@ -18,7 +18,7 @@ public class PersonDao {
 
     public Person findById(Long id) {
         return jdbcTemplate.queryForStream("select * from person where person_id=?", new PersonMapper(), id)
-                .findAny().orElse(null);
+                .findAny().orElse(new Person());
     }
 
     public void save(Person person) {

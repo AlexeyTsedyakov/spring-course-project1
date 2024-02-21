@@ -2,6 +2,7 @@ package org.example.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.example.dao.BookDao;
 import org.example.dao.PersonDao;
 import org.example.models.Person;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class PeopleController {
     private final PersonDao personDao;
+    private final BookDao bookDao;
 
     @GetMapping
     public String peopleList(Model model) {
@@ -24,6 +26,7 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String showPerson(@PathVariable("id") Long id, Model model) {
         model.addAttribute("person", personDao.findById(id));
+        model.addAttribute("books", bookDao.getPersonBooks(id));
         return "/people/show";
     }
 

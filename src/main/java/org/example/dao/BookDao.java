@@ -18,7 +18,7 @@ public class BookDao {
 
     public Book findById(Long id) {
         return jdbcTemplate.queryForStream("select * from book where book_id=?", new BookMapper(), id)
-                .findAny().orElse(null);
+                .findAny().orElse(new Book());
     }
 
     public void save(Book book) {
@@ -35,7 +35,15 @@ public class BookDao {
         jdbcTemplate.update("delete from book where book_id=?", id);
     }
 
-    public void removeTheBookOwner(Long id) {
+    public void setReader(Long bookId, Long personId) {
+        jdbcTemplate.update("update book set person_id=? where book_id=?", personId, bookId);
+    }
+
+    public void removeReader(Long id) {
         jdbcTemplate.update("update book set person_id=null where book_id=?", id);
+    }
+
+    public List<Book> getPersonBooks(Long id) {
+        return jdbcTemplate.query("select * from book where person_id=?", new BookMapper(), id);
     }
 }

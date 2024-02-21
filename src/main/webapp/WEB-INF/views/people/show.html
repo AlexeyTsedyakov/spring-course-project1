@@ -1,14 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
     <title>Читатель</title>
 </head>
 <body>
 <h2>Читатель</h2>
 
-<div th:text="${person.getName()} + ', ' + ${person.getYearOfBirth()}"></div>
-<hr>
+<p th:text="${person.getName()} + ', ' + ${person.getYearOfBirth()}"></p>
+
+<div th:if="${books.isEmpty()}">
+    Человек пока не взял ни одной книги
+    <hr>
+</div>
+
+<div th:unless="${books.isEmpty()}">
+    <hr>
+    <b>Книги:</b>
+    <table>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.getName()} + ','" />
+            <td th:text="${book.getAuthor()} + ','" />
+            <td th:text="${book.getYear()}" />
+        </tr>
+    </table>
+    <hr>
+</div>
+
 <div>
     <form th:method="get" th:action="@{/people/{id}/edit (id = ${person.getId()})}">
         <input type="submit" value="Редактировать">

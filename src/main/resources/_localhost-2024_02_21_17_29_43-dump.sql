@@ -31,7 +31,7 @@ CREATE TABLE `book` (
   PRIMARY KEY (`book_id`),
   KEY `person_id` (`person_id`),
   CONSTRAINT `book_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `book` (
 
 LOCK TABLES `book` WRITE;
 /*!40000 ALTER TABLE `book` DISABLE KEYS */;
+INSERT INTO `book` VALUES (1,1,'Стрелок','Стивен Кинг',1982),(2,1,'11/22/63','Стивен Кинг',2011),(3,6,'1984','Джордж Оруэлл',1949),(4,6,'Пикник на обочине','Братья Стругацкие',1971),(5,3,'Обломов','Иван Гончаров',1859),(6,NULL,'Преступление и наказание','Федор Достоевский',1866);
 /*!40000 ALTER TABLE `book` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,7 +58,7 @@ CREATE TABLE `person` (
   PRIMARY KEY (`person_id`),
   UNIQUE KEY `name` (`name`),
   CONSTRAINT `person_chk_1` CHECK ((`year_of_birth` > 0))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,6 +67,7 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 /*!40000 ALTER TABLE `person` DISABLE KEYS */;
+INSERT INTO `person` VALUES (1,'Цедяков Алексей Алексеевич',1993),(3,'Медведев Владислав Максимович',1994),(4,'Морозова Мадина Гайдаровна',1960),(6,'Цветков Алексей Леонидович',1971);
 /*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -78,4 +80,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-16 18:00:25
+-- Dump completed on 2024-02-21 17:29:43

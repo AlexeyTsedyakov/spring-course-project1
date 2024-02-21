@@ -1,28 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
     <title>Книга</title>
 </head>
+
 <body>
 <h2>Книга</h2>
 
-<div th:text="${book.getName()} + ', ' + ${book.getYear()}"></div>
+<p th:text="${book.getName()} + ', ' + ${book.getAuthor()} + ', ' + ${book.getYear()}"></p>
 
-<p>
-    <label for="selectPerson">Выберете человека </label>
-    <select th:if="${book.getPersonId() == null}" id="selectPerson">
-        <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getName()}"></option>
-    </select>
+<form th:if="${book.getPersonId()}" th:method="put" th:action="@{/books/{id}/remove-reader (id=${book.getId()})}">
+    <div>
+        Книга сейчас у: <span th:text="${reader.getName()}"></span><br>
+        <input type="submit" value="Освободить книгу">
+    </div>
+</form>
 
-    <form th:method="put" th:action="@{/books/free}">
-
-    </form>
-</p>
-
-
+<form th:unless="${book.getPersonId()}" th:method="put" th:action="@{/books/{id}/set-reader (id=${book.getId()})}">
+    <div>
+        Эта книга свободна. Кому назначить ее?<br>
+        <label for="selectReader">Выберете человека </label>
+        <select th:object="${reader}" th:field="*{id}" id="selectReader">
+            <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getName()}"></option>
+        </select>
+        <input type="submit" value="Назначить человека">
+    </div>
+</form>
 
 <hr>
+
 <div>
     <form th:method="get" th:action="@{/books/{id}/edit (id = ${book.getId()})}">
         <input type="submit" value="Редактировать">

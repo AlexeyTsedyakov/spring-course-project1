@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.dao.BookDao;
 import org.example.dao.PersonDao;
 import org.example.models.Book;
+import org.example.models.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/books")
 @RequiredArgsConstructor
-public class BookController {
+public class BooksController {
     private final BookDao bookDao;
     private final PersonDao personDao;
 
@@ -28,7 +29,7 @@ public class BookController {
         Book book = bookDao.findById(id);
         model.addAttribute("book", book);
         model.addAttribute("people", personDao.getAll());
-        model.addAttribute("owner", personDao.findById(book.getPersonId()));
+        model.addAttribute("reader", personDao.findById(book.getPersonId()));
         return "/books/show";
     }
 
@@ -68,9 +69,16 @@ public class BookController {
         return "redirect:/books";
     }
 
-    @PutMapping("/{id}/free")
-    public String free(@PathVariable("id") Long id) {
-        bookDao.removeTheBookOwner(id);
+    @PutMapping("/{id}/set-reader")
+    public String setReader(@PathVariable("id") Long id,
+                            @ModelAttribute("reader") Person reader) {
+        bookDao.setReader(id, reader.getId());
+        return "redirect:/books/" + id;
+    }
+
+    @PutMapping("/{id}/remove-reader")
+    public String removeReader(@PathVariable("id") Long id) {
+        bookDao.removeReader(id);
         return "redirect:/books/" + id;
     }
 }
