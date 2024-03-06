@@ -25,6 +25,6 @@ public class Book {
     private String author;
 
     @NotNull(message = "Не заполнен год!")
-    @Min(value = 600, message = "Год должен быть больше 600!")
+    @Min(value = 600, message = "Год должен быть больше, чем 600!")
     private Integer year;
 }

@@ -22,6 +22,6 @@ public class Person {
     private String name;
 
     @NotNull(message = "Не заполнен год рождения!")
-    @Min(value = 1900, message = "Год рождения должен быть больше 1900!")
+    @Min(value = 1900, message = "Год рождения должен быть больше, чем 1900!")
     private Integer yearOfBirth;
 }
